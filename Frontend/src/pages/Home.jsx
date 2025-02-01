@@ -4,8 +4,15 @@ import gsap from "gsap";
 import "remixicon/fonts/remixicon.css";
 import LocationSearchPanel from "../components/LocationSearchPanel";
 import VehiclePanel from "../components/VehiclePanel";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  const handleTravelPlanClick = () => {
+    navigate("/travel-plans");
+  };
+
   const [pickup, setPickup] = useState("");
   const [destination, setDestination] = useState("");
   const [panelOpen, setPanelOpen] = useState(false);
@@ -13,7 +20,6 @@ const Home = () => {
   const [vehiclePanelOpen, setVehiclePanelOpen] = useState(false);
   const vehiclePanelRef = useRef(null);
   const panelCloseRef = useRef(null);
-  
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -60,7 +66,14 @@ const Home = () => {
         src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png"
         alt="Uber Logo"
       />
-
+      <div className="absolute top-5 right-5 flex gap-4 z-20">
+        <button
+          onClick={handleTravelPlanClick}
+          className="bg-black text-white px-4 py-2 rounded-lg shadow-md hover:bg-gray-100 hover:text-black cursor-pointer"
+        >
+          Travel Plans
+        </button>
+      </div>
       <div className="h-screen w-screen">
         <img
           className="h-full w-full object-cover"
@@ -124,9 +137,7 @@ const Home = () => {
         ref={vehiclePanelRef}
         className="fixed w-full z-10 bottom-0 bg-white px-3 py-8 translate-y-full"
       >
-        <VehiclePanel
-          setVehiclePanelOpen={setVehiclePanelOpen}
-        />
+        <VehiclePanel setVehiclePanelOpen={setVehiclePanelOpen} />
       </div>
     </div>
   );
